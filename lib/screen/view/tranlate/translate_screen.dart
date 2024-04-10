@@ -1,6 +1,8 @@
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:translate_api_app/screen/provider/translate_provider.dart';
 
@@ -38,8 +40,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
                   Column(mainAxisSize: MainAxisSize.min,
                   children: [
@@ -58,6 +59,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                       }, icon: Icon(Icons.arrow_drop_down_outlined))
                     ],)
                   ],),
+                  SizedBox(height: 10,),
                   Column(mainAxisSize: MainAxisSize.min,
                     children: [
                       Text("please Select in Which Language you have to Translate:"),
@@ -121,17 +123,23 @@ class _TranslateScreenState extends State<TranslateScreen> {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
         title: Text("Please Select source Language:"),
-        content: ListView.builder(
-          itemCount: w!.langModelList.length,
-          itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              r!.getSourceLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
-            },
-            title: Text(w!.langModelList[index].lang!),
-            trailing: w!.langModelList[index].lang==w!.sourceLan?const Icon(Icons.check):Container(),
-          );
-        },
+        content: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: w!.langModelList.length,
+                itemBuilder: (context, index) {
+                return ListTile(
+                  onTap: () {
+                    r!.getSourceLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
+                  },
+                  title: Text(w!.langModelList[index].lang!),
+                  trailing: w!.langModelList[index].lang==w!.sourceLan?const Icon(Icons.check):Container(),
+                );
+              },
+              ),
+            ),
+          ],
         ),
         actions: [
           ElevatedButton(onPressed: () {
@@ -150,17 +158,24 @@ class _TranslateScreenState extends State<TranslateScreen> {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
         title: Text("Please Select Target Language:"),
-        content: ListView.builder(
-          itemCount: w!.langModelList.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () {
-                r!.getTargetLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
-              },
-              title: Text(w!.langModelList[index].lang!),
-              trailing: w!.langModelList[index].lang==w!.targetLan?const Icon(Icons.check):Container(),
-            );
-          },
+        content: Column(
+          children: [
+
+            Expanded(
+                 child: ListView.builder(
+                  itemCount: w!.langModelList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () {
+                        r!.getTargetLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
+                      },
+                      title: Text(w!.langModelList[index].lang!),
+                      trailing: w!.langModelList[index].lang==w!.targetLan?const Icon(Icons.check):Container(),
+                    );
+                  },
+                               ),
+               ),
+          ],
         ),
         actions: [
           ElevatedButton(onPressed: () {
