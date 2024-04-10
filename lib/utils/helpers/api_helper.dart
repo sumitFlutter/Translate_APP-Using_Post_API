@@ -22,11 +22,18 @@ class APIHelper{
       }
     return "Translation Got Error Please Try Again";
   }
-  Future<List<LangModel>> getLang()
+  Future<Map> getLang()
   async {
-    String jsonString=await rootBundle.loadString("assets/json/lang.json");
-    List jsonList=jsonDecode(jsonString);
-    List<LangModel>l1=jsonList.map((e) => LangModel.mapToModel(e)).toList();
-    return l1;
+    var result=await http.get(Uri.parse("https://translate-plus.p.rapidapi.com/"),headers: {
+      'X-RapidAPI-Key': '090af0fcf9msh052e8d02c1d238dp1f0666jsn5ff1fc6b8758',
+      'X-RapidAPI-Host': 'translate-plus.p.rapidapi.com',
+    });
+    if(result.statusCode==200)
+      {
+        var mainJson=jsonDecode(result.body);
+        Map lMap=mainJson["supported_languages"];
+        return lMap;
+      }
+    return {};
   }
 }
