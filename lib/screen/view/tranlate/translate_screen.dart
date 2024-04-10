@@ -1,6 +1,8 @@
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:translate_api_app/screen/provider/translate_provider.dart';
 
@@ -38,8 +40,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
                   Column(mainAxisSize: MainAxisSize.min,
                   children: [
@@ -58,6 +59,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                       }, icon: Icon(Icons.arrow_drop_down_outlined))
                     ],)
                   ],),
+                  SizedBox(height: 10,),
                   Column(mainAxisSize: MainAxisSize.min,
                     children: [
                       Text("please Select in Which Language you have to Translate:"),
@@ -96,11 +98,11 @@ class _TranslateScreenState extends State<TranslateScreen> {
               ),
               SizedBox(height: 15,),
               Center(
-                child: ElevatedButton(onPressed: () {
+                child: ElevatedButton(onPressed: () async {
                   if(key.currentState!.validate())
                     {
                       r!.processing();
-                      r!.getTranslate(textTxt: textTxt.text);
+                     await  r!.getTranslate(textTxt: textTxt.text);
                       textTxt.clear();
                     }
                 }, child: const Text("Translate")),
@@ -118,64 +120,80 @@ class _TranslateScreenState extends State<TranslateScreen> {
   }
   void getSource()
   {
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: Text("Please Select source Language:"),
-        content: SizedBox(height: 200,
-        child: ListView.builder(
-          itemCount: w!.langModelList.length,
-          itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              r!.getSourceLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
+    showModalBottomSheet(context: context, builder: (context) {
+      return Column(
+          children:[ Text("Please Select source Language:",style: TextStyle(fontWeight: FontWeight.bold),),
+          SizedBox(height: 10,),
+          SizedBox(
+            height: 300,
+            width: 300,
+            child: ListView.builder(
+              itemCount: w!.langModelList.length,
+              itemBuilder: (context, index) {
+              return ListTile(
+                onTap: () {
+                  r!.getSourceLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
+                },
+                title: Text(w!.langModelList[index].lang!),
+                trailing: w!.langModelList[index].lang==w!.sourceLan?const Icon(Icons.check):Container(),
+              );
             },
-            title: Text(w!.langModelList[index].lang!),
-            trailing: w!.langModelList[index].lang==w!.sourceLan?const Icon(Icons.check):Container(),
-          );
-        },
-        ),
-        ),
-        actions: [
-          ElevatedButton(onPressed: () {
-            r!.getSourceLan(lCode: "en", lan: "English");
-            Navigator.pop(context);
-          }, child: Text("Cancel")),
-          ElevatedButton(onPressed: () {
-            Navigator.pop(context);
-          }, child: Text("OK!"))
-        ],
-      );
+            ),
+          ),
+            SizedBox(height: 10,),
+            Row(mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(onPressed: () {
+                r!.getSourceLan(lCode: "en", lan: "English");
+                Navigator.pop(context);
+              }, child: Text("Cancel")),
+              SizedBox(width: 4,),
+              ElevatedButton(onPressed: () {
+                Navigator.pop(context);
+              }, child: Text("OK!"))
+
+            ],)
+          ]
+        );
     },);
   }
   void getTarget()
   {
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: Text("Please Select Target Language:"),
-        content: SizedBox(height: 200,
-          child: ListView.builder(
-            itemCount: w!.langModelList.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                onTap: () {
-                  r!.getTargetLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
-                },
-                title: Text(w!.langModelList[index].lang!),
-                trailing: w!.langModelList[index].lang==w!.targetLan?const Icon(Icons.check):Container(),
-              );
-            },
-          ),
-        ),
-        actions: [
-          ElevatedButton(onPressed: () {
-            r!.getTargetLan(lCode: "gu", lan: "Gujarati");
-            Navigator.pop(context);
-          }, child: Text("Cancel")),
-          ElevatedButton(onPressed: () {
-            Navigator.pop(context);
-          }, child: Text("OK!"))
-        ],
-      );
+    showModalBottomSheet(context: context, builder: (context) {
+      return Column(
+          children: [
+            Text("Please Select Target Language:",style: TextStyle(fontWeight: FontWeight.bold),),
+            SizedBox(height: 10,),
+            SizedBox(
+              height: 300,
+              width: 300,
+              child: ListView.builder(
+               itemCount: w!.langModelList.length,
+               itemBuilder: (context, index) {
+                 return ListTile(
+                   onTap: () {
+                     r!.getTargetLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
+                   },
+                   title: Text(w!.langModelList[index].lang!),
+                   trailing: w!.langModelList[index].lang==w!.targetLan?const Icon(Icons.check):Container(),
+                 );
+               },
+                            ),
+            ),
+            SizedBox(height: 15,),
+            Row(mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(onPressed: () {
+                r!.getTargetLan(lCode: "gu", lan: "Gujarati");
+                Navigator.pop(context);
+              }, child: Text("Cancel")),
+              SizedBox(width: 4,),
+              ElevatedButton(onPressed: () {
+                Navigator.pop(context);
+              }, child: Text("OK!"))
+            ],)
+          ],
+        );
     },);
   }
 }
