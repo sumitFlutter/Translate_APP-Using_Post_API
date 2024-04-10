@@ -20,7 +20,7 @@ class APIHelper{
         String ans=mainJson["translations"]["translation"];
         return ans;
       }
-    return "";
+    return "Translation Got Error Please Try Again";
   }
   Future<List<LangModel>> getLang()
   async {

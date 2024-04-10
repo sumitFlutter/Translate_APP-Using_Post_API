@@ -96,11 +96,11 @@ class _TranslateScreenState extends State<TranslateScreen> {
               ),
               SizedBox(height: 15,),
               Center(
-                child: ElevatedButton(onPressed: () {
+                child: ElevatedButton(onPressed: () async {
                   if(key.currentState!.validate())
                     {
                       r!.processing();
-                      r!.getTranslate(textTxt: textTxt.text);
+                     await  r!.getTranslate(textTxt: textTxt.text);
                       textTxt.clear();
                     }
                 }, child: const Text("Translate")),
@@ -121,8 +121,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
         title: Text("Please Select source Language:"),
-        content: SizedBox(height: 200,
-        child: ListView.builder(
+        content: ListView.builder(
           itemCount: w!.langModelList.length,
           itemBuilder: (context, index) {
           return ListTile(
@@ -133,7 +132,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
             trailing: w!.langModelList[index].lang==w!.sourceLan?const Icon(Icons.check):Container(),
           );
         },
-        ),
         ),
         actions: [
           ElevatedButton(onPressed: () {
@@ -152,19 +150,17 @@ class _TranslateScreenState extends State<TranslateScreen> {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
         title: Text("Please Select Target Language:"),
-        content: SizedBox(height: 200,
-          child: ListView.builder(
-            itemCount: w!.langModelList.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                onTap: () {
-                  r!.getTargetLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
-                },
-                title: Text(w!.langModelList[index].lang!),
-                trailing: w!.langModelList[index].lang==w!.targetLan?const Icon(Icons.check):Container(),
-              );
-            },
-          ),
+        content: ListView.builder(
+          itemCount: w!.langModelList.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                r!.getTargetLan(lCode: w!.langModelList[index].code!, lan: w!.langModelList[index].lang!);
+              },
+              title: Text(w!.langModelList[index].lang!),
+              trailing: w!.langModelList[index].lang==w!.targetLan?const Icon(Icons.check):Container(),
+            );
+          },
         ),
         actions: [
           ElevatedButton(onPressed: () {
