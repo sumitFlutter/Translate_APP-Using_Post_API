@@ -129,7 +129,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                         onPressed: () async {
                           if (key.currentState!.validate()) {
                             r!.processing();
-                            await r!.getTranslate(textTxt: textTxt.text);
+                            r!.getTranslate(textTxt: textTxt.text);
                             textTxt.clear();
                           }
                         },
@@ -161,17 +161,19 @@ class _TranslateScreenState extends State<TranslateScreen> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return SizedBox(
-          height: 600,
-          width: double.infinity,
-          child: AlertDialog(
-            title: const Text("Please Select source Language:"),
-            content
-                : SizedBox(
+        return Container(
+          width: MediaQuery.sizeOf(context).width,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 10,),
+              const Text("Please Select Source Language:",style: TextStyle(fontWeight: FontWeight.bold),),
+              SizedBox(height: 10,),
+              w!.langModelList.isEmpty?Text("Check your network connection"):
+              Container(
                     height: 200,
-                    width: 600,
+                    width: MediaQuery.sizeOf(context).width,
                     child: ListView.builder(
-                      shrinkWrap: true,
                       itemCount: w!.langModelList.length,
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -197,19 +199,24 @@ class _TranslateScreenState extends State<TranslateScreen> {
                       },
                     ),
                   ),
-            actions: [
-              ElevatedButton(
-                  onPressed: () {
-                    r!.getSourceLan(lCode: "en", lan: "English");
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Cancel")),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text("OK!"))
-            ],
+            SizedBox(height: 10,),
+            Row(mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      r!.getSourceLan(lCode: "en", lan: "English");
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Cancel")),
+                SizedBox(width: 5,),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK!"))
+              ],
+            ),
+            ]
           ),
         );
       },
@@ -220,17 +227,19 @@ class _TranslateScreenState extends State<TranslateScreen> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return SizedBox(
-          height: 600,
-          width: double.infinity,
-          child: AlertDialog(
-              title: const Text("Please Select Target Language:"),
-              content:
-                  SizedBox(
+        return Container(
+          width: MediaQuery.sizeOf(context).width,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 10,),
+              const Text("Please Select Target Language:",style: TextStyle(fontWeight: FontWeight.bold),),
+              SizedBox(height: 10,),
+                  w!.langModelList.isEmpty?Text("Check your network connection"):
+                  Container(
                       height: 200,
-                      width: 600,
+                    width: MediaQuery.sizeOf(context).width,
                       child: ListView.builder(
-                        shrinkWrap: true,
                         itemCount: w!.langModelList.length,
                         itemBuilder: (context, index) {
                           return InkWell(
@@ -256,19 +265,26 @@ class _TranslateScreenState extends State<TranslateScreen> {
                         },
                       ),
                     ),
-              actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      r!.getTargetLan(lCode: "gu", lan: "Gujarati");
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Cancel")),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("OK!"))
-              ]),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          r!.getTargetLan(lCode: "gu", lan: "Gujarati");
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel")),
+                    SizedBox(width: 5,),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("OK!"))
+                  ]
+              )
+            ]
+            ),
         );
       },
     );

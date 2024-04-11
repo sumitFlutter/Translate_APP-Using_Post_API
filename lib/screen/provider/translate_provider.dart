@@ -28,7 +28,7 @@ class TranslateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getTranslate({required String textTxt}) async {
+  void getTranslate({required String textTxt}) async {
     text = textTxt;
     String t = await apiHelper.translateData(
       source: source,
@@ -40,14 +40,8 @@ class TranslateProvider with ChangeNotifier {
   }
 
   void getLangData() async {
-    if(await apiHelper.getLang()=={})
-      {
-        langModelList={};
-      }
-    else{
       Map  m1 = await apiHelper.getLang();
       langModelList=m1;
-    }
-    notifyListeners();
+      notifyListeners();
   }
 }
