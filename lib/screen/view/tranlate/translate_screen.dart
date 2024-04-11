@@ -51,6 +51,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                           ),
                           InkWell(
                             onTap: () {
+                              r!.getLangData();
                               getSource();
                             },
                             child: Row(
@@ -82,6 +83,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                           ),
                           InkWell(
                             onTap: () {
+                              r!.getLangData();
                               getTarget();
                             },
                             child: Row(
