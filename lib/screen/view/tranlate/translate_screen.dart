@@ -16,6 +16,13 @@ class _TranslateScreenState extends State<TranslateScreen> {
   TextEditingController textTxt = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<TranslateProvider>().getLangData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     r = context.read<TranslateProvider>();
     w = context.watch<TranslateProvider>();
@@ -51,7 +58,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              r!.getLangData();
                               getSource();
                             },
                             child: Row(
@@ -83,7 +89,6 @@ class _TranslateScreenState extends State<TranslateScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              r!.getLangData();
                               getTarget();
                             },
                             child: Row(
@@ -165,14 +170,20 @@ class _TranslateScreenState extends State<TranslateScreen> {
       builder: (context) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 10,),
-              const Text("Please Select Source Language:",style: TextStyle(fontWeight: FontWeight.bold),),
-              SizedBox(height: 10,),
-              w!.langModelList.isEmpty?Text("Check your network connection"):
-              Container(
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              "Please Select Source Language:",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            w!.langModelList.isEmpty
+                ? const Text("Check your network connection")
+                : Container(
                     height: 200,
                     width: MediaQuery.sizeOf(context).width,
                     child: ListView.builder(
@@ -182,27 +193,32 @@ class _TranslateScreenState extends State<TranslateScreen> {
                           onTap: () {
                             r!.getSourceLan(
                                 lCode: w!.langModelList[
-                                w!.langModelList.keys.toList()[index]],
+                                    w!.langModelList.keys.toList()[index]],
                                 lan: w!.langModelList.keys.toList()[index]);
                           },
                           child: Container(
-                            margin: EdgeInsets.all(5),
+                            margin: const EdgeInsets.all(5),
                             decoration: BoxDecoration(border: Border.all()),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children:[ Text(w!.langModelList.keys.toList()[index]),
-                              w!.langModelList.keys.toList()[index] ==
-                                      w!.sourceLan
-                                  ? const Icon(Icons.check)
-                                  : Container(),]
-                            ),
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(w!.langModelList.keys.toList()[index]),
+                                  w!.langModelList.keys.toList()[index] ==
+                                          w!.sourceLan
+                                      ? const Icon(Icons.check)
+                                      : Container(),
+                                ]),
                           ),
                         );
                       },
                     ),
                   ),
-            SizedBox(height: 10,),
-            Row(mainAxisAlignment: MainAxisAlignment.end,
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
                     onPressed: () {
@@ -210,7 +226,9 @@ class _TranslateScreenState extends State<TranslateScreen> {
                       Navigator.pop(context);
                     },
                     child: const Text("Cancel")),
-                SizedBox(width: 5,),
+                const SizedBox(
+                  width: 5,
+                ),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -218,8 +236,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                     child: const Text("OK!"))
               ],
             ),
-            ]
-          ),
+          ]),
         );
       },
     );
@@ -231,62 +248,70 @@ class _TranslateScreenState extends State<TranslateScreen> {
       builder: (context) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 10,),
-              const Text("Please Select Target Language:",style: TextStyle(fontWeight: FontWeight.bold),),
-              SizedBox(height: 10,),
-                  w!.langModelList.isEmpty?Text("Check your network connection"):
-                  Container(
-                      height: 200,
-                    width: MediaQuery.sizeOf(context).width,
-                      child: ListView.builder(
-                        itemCount: w!.langModelList.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              r!.getTargetLan(
-                                  lCode: w!.langModelList[
-                                  w!.langModelList.keys.toList()[index]],
-                                  lan: w!.langModelList.keys.toList()[index]);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(border: Border.all()),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [ Text(w!.langModelList.keys.toList()[index]),
-                                 w!.langModelList.keys.toList()[index] ==
-                                        w!.targetLan
-                                    ? const Icon(Icons.check)
-                                    : Container(),]
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          r!.getTargetLan(lCode: "gu", lan: "Gujarati");
-                          Navigator.pop(context);
-                        },
-                        child: const Text("Cancel")),
-                    SizedBox(width: 5,),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("OK!"))
-                  ]
-              )
-            ]
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            const SizedBox(
+              height: 10,
             ),
+            const Text(
+              "Please Select Target Language:",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            w!.langModelList.isEmpty
+                ? const Text("Check your network connection")
+                : Container(
+                    height: 200,
+                    width: MediaQuery.sizeOf(context).width,
+                    child: ListView.builder(
+                      itemCount: w!.langModelList.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            r!.getTargetLan(
+                                lCode: w!.langModelList[
+                                    w!.langModelList.keys.toList()[index]],
+                                lan: w!.langModelList.keys.toList()[index]);
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(border: Border.all()),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(w!.langModelList.keys.toList()[index]),
+                                  w!.langModelList.keys.toList()[index] ==
+                                          w!.targetLan
+                                      ? const Icon(Icons.check)
+                                      : Container(),
+                                ]),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              ElevatedButton(
+                  onPressed: () {
+                    r!.getTargetLan(lCode: "gu", lan: "Gujarati");
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Cancel")),
+              const SizedBox(
+                width: 5,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("OK!"))
+            ])
+          ]),
         );
       },
     );
