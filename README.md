@@ -1,6 +1,4 @@
 #Translate Plus
-
-
 **Introducing Translate Plus by Sumit Gohil**
 
 Unlock a world of seamless communication with Translate Plus, the ultimate language companion crafted with Flutter. Powered by the Translate Plus API from RapidAPI, this app effortlessly translates text across over 100 languages. Whether you're exploring new cultures, conducting business globally, or simply bridging language barriers, Translate Plus ensures every word is understood.
