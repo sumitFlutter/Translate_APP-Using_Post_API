@@ -19,7 +19,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<TranslateProvider>().getLangData();
+    getLangDataMap();
   }
 
   @override
@@ -181,20 +181,20 @@ class _TranslateScreenState extends State<TranslateScreen> {
             const SizedBox(
               height: 10,
             ),
-            w!.langModelList.isEmpty
+            w!.langModelList==null
                 ? const Text("Check your network connection")
                 : Container(
                     height: 200,
                     width: MediaQuery.sizeOf(context).width,
                     child: ListView.builder(
-                      itemCount: w!.langModelList.length,
+                      itemCount: w!.langModelList!.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
                             r!.getSourceLan(
-                                lCode: w!.langModelList[
-                                    w!.langModelList.keys.toList()[index]],
-                                lan: w!.langModelList.keys.toList()[index]);
+                                lCode: w!.langModelList![
+                                    w!.langModelList!.keys.toList()[index]],
+                                lan: w!.langModelList!.keys.toList()[index]);
                           },
                           child: Container(
                             margin: const EdgeInsets.all(5),
@@ -203,8 +203,8 @@ class _TranslateScreenState extends State<TranslateScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(w!.langModelList.keys.toList()[index]),
-                                  w!.langModelList.keys.toList()[index] ==
+                                  Text(w!.langModelList!.keys.toList()[index]),
+                                  w!.langModelList!.keys.toList()[index] ==
                                           w!.sourceLan
                                       ? const Icon(Icons.check)
                                       : Container(),
@@ -259,20 +259,20 @@ class _TranslateScreenState extends State<TranslateScreen> {
             const SizedBox(
               height: 10,
             ),
-            w!.langModelList.isEmpty
+            w!.langModelList==null
                 ? const Text("Check your network connection")
                 : Container(
                     height: 200,
                     width: MediaQuery.sizeOf(context).width,
                     child: ListView.builder(
-                      itemCount: w!.langModelList.length,
+                      itemCount: w!.langModelList!.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
                             r!.getTargetLan(
-                                lCode: w!.langModelList[
-                                    w!.langModelList.keys.toList()[index]],
-                                lan: w!.langModelList.keys.toList()[index]);
+                                lCode: w!.langModelList![
+                                    w!.langModelList!.keys.toList()[index]],
+                                lan: w!.langModelList!.keys.toList()[index]);
                           },
                           child: Container(
                             margin: const EdgeInsets.all(5),
@@ -281,8 +281,8 @@ class _TranslateScreenState extends State<TranslateScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(w!.langModelList.keys.toList()[index]),
-                                  w!.langModelList.keys.toList()[index] ==
+                                  Text(w!.langModelList!.keys.toList()[index]),
+                                  w!.langModelList!.keys.toList()[index] ==
                                           w!.targetLan
                                       ? const Icon(Icons.check)
                                       : Container(),
@@ -315,5 +315,9 @@ class _TranslateScreenState extends State<TranslateScreen> {
         );
       },
     );
+  }
+  void getLangDataMap()
+  async {
+    await context.read<TranslateProvider>().getLangData();
   }
 }
