@@ -9,7 +9,7 @@ class TranslateProvider with ChangeNotifier {
       sourceLan = "English",
       targetLan = "Gujarati";
   APIHelper apiHelper = APIHelper();
-  Map langModelList = {};
+  Map? langModelList;
 
   void getSourceLan({required String lCode, required String lan}) {
     source = lCode;
@@ -39,9 +39,8 @@ class TranslateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void getLangData() async {
-      Map  m1 = await apiHelper.getLang();
-      langModelList=m1;
+  Future<void> getLangData() async {
+    langModelList=await apiHelper.getLang();
       notifyListeners();
   }
 }
