@@ -10,3 +10,6 @@ Unlock a world of seamless communication with My Translate Assistant, the ultima
 - **Cross-Platform Compatibility:** Available on both Android and iOS, ensuring accessibility wherever you go.
 
 Elevate your conversations, explore the world, and connect seamlessly with My Translate Assistant. Download now and let language no longer be a barrier!
+<p>
+  <img src="https://github.com/sumitFlutter/Translate_APP-Using_Post_API/assets/153794386/4cadaa73-ab5f-43bd-9de0-5746286a2dd2"    height="400px"   width="200px"/>
+</p>
