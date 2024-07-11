@@ -54,26 +54,11 @@ class _TranslateScreenState extends State<TranslateScreen> {
                           const Text(
                               "please Select in Which Language you have Typed:"),
                           const SizedBox(
-                            height: 2,
+                            height: 5,
                           ),
-                          InkWell(
-                            onTap: () {
-                              getSource();
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(),
-                                  ),
-                                  child: Text(w!.sourceLan),
-                                ),
-                                const Icon(Icons.arrow_drop_down_outlined)
-                              ],
-                            ),
-                          )
+                          TextButton.icon(onPressed: () {
+                            getSource();
+                          }, label: Text(w!.sourceLan),icon: Icon(Icons.arrow_drop_down_outlined),)
                         ],
                       ),
                       const SizedBox(
@@ -85,26 +70,11 @@ class _TranslateScreenState extends State<TranslateScreen> {
                           const Text(
                               "please Select in Which Language you have to Translate:"),
                           const SizedBox(
-                            height: 2,
+                            height: 5,
                           ),
-                          InkWell(
-                            onTap: () {
-                              getTarget();
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(),
-                                  ),
-                                  child: Text(w!.targetLan),
-                                ),
-                                const Icon(Icons.arrow_drop_down_outlined)
-                              ],
-                            ),
-                          )
+                          TextButton.icon(onPressed: () {
+                            getTarget();
+                          }, label: Text(w!.targetLan),icon: Icon(Icons.arrow_drop_down_outlined),)
                         ],
                       )
                     ],
