@@ -204,10 +204,8 @@ class _TranslateScreenState extends State<TranslateScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(w!.langModelList!.keys.toList()[index]),
-                                  w!.langModelList!.keys.toList()[index] ==
-                                          w!.sourceLan
-                                      ? const Icon(Icons.check)
-                                      : Container(),
+                                  Visibility(visible: w!.langModelList!.keys.toList()[index] ==
+                                      w!.sourceLan,child: Icon(Icons.check),)
                                 ]),
                           ),
                         );
@@ -282,10 +280,9 @@ class _TranslateScreenState extends State<TranslateScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(w!.langModelList!.keys.toList()[index]),
-                                  w!.langModelList!.keys.toList()[index] ==
-                                          w!.targetLan
-                                      ? const Icon(Icons.check)
-                                      : Container(),
+                                  Visibility(visible: w!.langModelList!.keys.toList()[index] ==
+                                      w!.targetLan,
+                                  child: Icon(Icons.check),),
                                 ]),
                           ),
                         );
