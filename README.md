@@ -12,4 +12,8 @@ Unlock a world of seamless communication with My Translate Assistant, the ultima
 Elevate your conversations, explore the world, and connect seamlessly with My Translate Assistant. Download now and let language no longer be a barrier!
 <p>
   <img src="https://github.com/sumitFlutter/Translate_APP-Using_Post_API/assets/153794386/4cadaa73-ab5f-43bd-9de0-5746286a2dd2"    height="400px"   width="200px"/>
+
+  <img src="https://github.com/sumitFlutter/Translate_APP-Using_Post_API/assets/153794386/ba9eeb1b-51ea-4feb-a308-d3d39ad6a962"    height="400px"   width="200px"/>
+<img src="https://github.com/sumitFlutter/Translate_APP-Using_Post_API/assets/153794386/84c75c09-c0b5-4a7f-a28b-a3d8035db60b"    height="400px"   width="200px"/>
+
 </p>
