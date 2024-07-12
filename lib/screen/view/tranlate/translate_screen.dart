@@ -29,6 +29,8 @@ class _TranslateScreenState extends State<TranslateScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           title: const Text(
             "My Translate Assistant",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -43,89 +45,91 @@ class _TranslateScreenState extends State<TranslateScreen> {
           child: Center(
             child: Form(
               key: key,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                              "please Select in Which Language you have Typed:"),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextButton.icon(onPressed: () {
-                            getSource();
-                          }, label: Text(w!.sourceLan),icon: Icon(Icons.arrow_drop_down_outlined),)
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                              "please Select in Which Language you have to Translate:"),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          TextButton.icon(onPressed: () {
-                            getTarget();
-                          }, label: Text(w!.targetLan),icon: Icon(Icons.arrow_drop_down_outlined),)
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: textTxt,
-                    decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(),
-                      hintText:
-                          "Enter Speech or Sentence or word That you wanna translate here:",
-                      prefixIcon: Icon(Icons.translate),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                                "please Select in Which Language you have Typed:"),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextButton.icon(onPressed: () {
+                              getSource();
+                            }, label: Text(w!.sourceLan),icon: Icon(Icons.arrow_drop_down_outlined),)
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                                "please Select in Which Language you have to Translate:"),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextButton.icon(onPressed: () {
+                              getTarget();
+                            }, label: Text(w!.targetLan),icon: Icon(Icons.arrow_drop_down_outlined),)
+                          ],
+                        )
+                      ],
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "This Field is required to translate";
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Center(
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          if (key.currentState!.validate()) {
-                            r!.processing();
-                            r!.getTranslate(textTxt: textTxt.text);
-                            textTxt.clear();
-                          }
-                        },
-                        child: const Text("Translate")),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(border: Border.all(width: 2)),
-                    child: Center(
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      controller: textTxt,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(),
+                        hintText:
+                            "Enter Speech or Sentence or word That you wanna translate here:",
+                        prefixIcon: Icon(Icons.translate),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "This Field is required to translate";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            if (key.currentState!.validate()) {
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              r!.processing();
+                              r!.getTranslate(textTxt: textTxt.text);
+                              textTxt.clear();
+                            }
+                          },
+                          child: const Text("Translate")),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(border: Border.all(width: 2)),
                       child: SelectableText(
                         w!.translate,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
