@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:translate_api_app/screen/provider/translate_provider.dart';
 import 'package:translate_api_app/utils/routes/translate_routes.dart';
 void main()
-{
+{WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
   runApp(
     const MyApp(),
   );
